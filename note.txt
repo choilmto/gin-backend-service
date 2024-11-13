@@ -1,0 +1,40 @@
+What is your favourite technical tool? Please share an example of how you use it?
+
+Git is a useful tool for collaboration although there exist alternative version control systems, too. Collaboration is an important part of making software, and standards will help maintainers understand the intention behind any change I propose. For example, I should:
+- follow naming conventions for git branches
+- write clear commit messages
+- start branches on agreed-upon commits
+
+In addition to helping developers coordinate efforts while working together, git is an important part of my own development workflow. I mostly use basic commands, but those commands can be enough to stay organized while coding. Using the abstractions of branches and commits, I can modularize changes after breaking down a ticket or a feature into constituent parts. Specifically, I can separate concerns, perhaps into different branches. This allows me to isolate decision-making. When the separate components are completed, I can then combine the parts, piece-wise. If necessary, I adapt interfaces so things fit together properly.
+
+In software development, there can be many uncertainties, and git also helps me manage some unknowns. If I can't decide on a way forward, git helps me to isolate and track different attempts or experiments simultaneously, for example via different commits. This way, I can:
+-easily switch between experiments
+-isolate experiments from each other
+-isolate experiments from non-experimental changes
+From there, I can answer questions such as "what do I want my code to do" and "how do I get my code to do that". Finally, git abstractions force developers to acknowledge the boundaries or limitations of changes, i.e. "what can't my code do".
+
+I would like to learn more about other features of git that I don't regularly use. One thing I would like to do more often is read commit messages to learn the historical context of changes made to the code base. Commit messages may contain information about
+-use cases
+-architectural/design decisions
+-who worked on a piece of code in order to ask follow-up questions
+-limitations and other considerations
+
+
+
+
+
+Share an example of what you coded with Go or Python. Where, when, and what was the result?
+
+I recently used the golang framework gin to stand up a backend service on the hosting platform Render.com. Working with go has some advantages. The command "go fmt" means that code style is standardized across the go code base. Also, the command "go test" means I can start writing tests without first choosing a testing framework. One minor convenience that I like is struct tags to make JSON encoding easier. A common complaint about the language is how frequently explicit error-handling happens when writing go. It is probably good practice to reason through error-handling when writing a web application in any language.
+
+Setting up the router and routes using gin was straightforward enough although it took some effort to adapt to their documentation the way it is currently organized. The gin website has a long list of tutorials, but it would be nice to find information via an index of keywords and important interfaces, for example.
+
+With gin, I composed a basic api, set up a few routes, and wrote a few automated tests. The repo of the work can be found here:
+
+https://github.com/choilmto/gin-backend-service
+
+Also, I used GitHub Actions to create a CI pipeline. I am moderately familiar with GitHub Actions although I had to troubleshoot the CI for compatible golang versions.
+
+https://github.com/choilmto/gin-backend-service/actions
+
+The CD pipeline was simple because I didn't have to consider infrastructure concerns such as high availability, security ops, or session management. Furthermore, render specifically supports gin, among other frameworks, so there was no extra configuration.
