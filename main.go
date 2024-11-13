@@ -8,8 +8,8 @@ import (
 	"github.com/gin-gonic/gin"
 )
 
-// album represents data about a record album.
-type album struct {
+// Album represents data about a record Album.
+type Album struct {
 	ID     string  `json:"id"`
 	Title  string  `json:"title"`
 	Artist string  `json:"artist"`
@@ -17,27 +17,32 @@ type album struct {
 }
 
 // albums slice to seed record album data.
-var albums = []album{
+var albums = []Album{
 	{ID: "1", Title: "Blue Train", Artist: "John Coltrane", Price: 56.99},
 	{ID: "2", Title: "Jeru", Artist: "Gerry Mulligan", Price: 17.99},
 	{ID: "3", Title: "Sarah Vaughan and Clifford Brown", Artist: "Sarah Vaughan", Price: 39.99},
 }
 
 func main() {
-	router := gin.Default()
-	router.GET("/albums", getAlbums)
-	router.GET("/albums/:id", getAlbumByID)
-	router.POST("/albums", postAlbums)
+	r := setupRouter()
 
 	port := os.Getenv("PORT")
 	if port == "" {
 		port = "8080"
 	}
 
-	if err := router.Run(":" + port); err != nil {
+	if err := r.Run(":" + port); err != nil {
 		log.Panicf("error: %s", err)
 	}
-	//router.Run("localhost:8080")
+}
+
+// configures routes
+func setupRouter() *gin.Engine {
+	router := gin.Default()
+	router.GET("/albums", getAlbums)
+	router.GET("/albums/:id", getAlbumByID)
+	router.POST("/albums", postAlbums)
+	return router
 }
 
 // getAlbums responds with the list of all albums as JSON.
@@ -47,7 +52,7 @@ func getAlbums(c *gin.Context) {
 
 // postAlbums adds an album from JSON received in the request body.
 func postAlbums(c *gin.Context) {
-	var newAlbum album
+	var newAlbum Album
 
 	// Call BindJSON to bind the received JSON to
 	// newAlbum.
